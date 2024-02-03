@@ -43,6 +43,7 @@ test: test-unit ## Run tests.
 
 .PHONY: build
 build: generate-ebpf fmt vet
+	go build -o bpfescapego
 
 .PHONY: update-libbpf
 update-libbpf: 
@@ -50,5 +51,5 @@ update-libbpf:
 	bpftool btf dump file /sys/kernel/btf/vmlinux format c > pkg/c/headers/vmlinux.h
 
 .PHONY: main-test
-main-test:
+main-test: generate-ebpf
 	sudo go run main.go

