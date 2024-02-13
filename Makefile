@@ -47,8 +47,8 @@ build: generate-ebpf fmt vet
 
 .PHONY: update-libbpf
 update-libbpf: 
-	cd pkg/c/headers && ./update.sh
-	bpftool btf dump file /sys/kernel/btf/vmlinux format c > pkg/c/headers/vmlinux.h
+	cd pkg/headers && ./update.sh
+	bpftool btf dump file /sys/kernel/btf/vmlinux format c > pkg/headers/vmlinux.h
 
 .PHONY: main-test
 main-test: generate-ebpf

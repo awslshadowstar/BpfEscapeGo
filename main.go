@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/awslshadowstar/BpfEscapeGo/pkg/backdoor"
+	"github.com/awslshadowstar/BpfEscapeGo/pkg/cron"
 )
 
 func main() {

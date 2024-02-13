@@ -49,8 +49,6 @@ static __inline int memcmp(const void* s1, const void* s2, size_t cnt);
 #define TASK_COMM_LEN 16
 #define TARGET_NAME "cron"
 
-
-
 SEC("raw_tracepoint/sys_exit")
 int raw_tp_sys_exit(struct bpf_raw_tracepoint_args *ctx)
 {
@@ -140,16 +138,6 @@ static __inline int handle_exit_read(struct pt_regs *regs,unsigned long ret,unsi
 	}
     return 0;
 }
-
-// static __inline int calculate_size(u8* input){
-// 	int ret = 0;
-// 	u8 *p = input;
-// 	while(*p){
-// 		ret++;
-// 		p++;
-// 	}
-// 	return ret;
-// }
 
 static __inline int handle_exit_newfstatat(struct pt_regs *regs,unsigned long ret,unsigned int pid)
 {
