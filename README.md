@@ -21,3 +21,6 @@ docker run -it --cap-add sys_admin -v `pwd`:/tmp  ubuntu
 下图是展示将输出重定向到远程主机的操作
 
 ![输出重定向到远程接收图片](https://github.com/awslshadowstar/BpfEscapeGo/assets/52888924/6039130a-b8f4-430f-a2e4-3485ffa5427e)
+
+### TODO list
+劫持 kubelet 实现容器逃逸
