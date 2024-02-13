@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-/* Copyright (c) 2020 Facebook */
+/* Copyright (c) 2024 Shadowstar */
 
 #define BPF_NO_PRESERVE_ACCESS_INDEX
 #include "vmlinux.h"
