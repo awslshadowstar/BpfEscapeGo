@@ -1,4 +1,4 @@
-package backdoor
+package cron
 
 func stringToInt8(input string) (ret [256]int8) {
 	for index, value := range input {

@@ -1,6 +1,6 @@
 //go:build 386 || amd64
 
-package backdoor
+package cron
 
 import "fmt"
 
