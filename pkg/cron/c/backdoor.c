@@ -3,9 +3,9 @@
 
 #define BPF_NO_PRESERVE_ACCESS_INDEX
 #include "vmlinux.h"
-#include <bpf/bpf_helpers.h>
-#include <bpf/bpf_core_read.h>
-#include <bpf/bpf_tracing.h>
+#include <bpf_helpers.h>
+#include <bpf_core_read.h>
+#include <bpf_tracing.h>
 
 #define BPF_MAP_NAME bpf_for_escape
 #define BPF_KEY_ID 7
