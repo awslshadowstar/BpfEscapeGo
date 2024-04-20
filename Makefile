@@ -51,7 +51,7 @@ test: test-unit ## Run tests.
 
 .PHONY: build
 build: generate-ebpf 
-	go build -o bpfescapego
+	go build -o BpfEscapeGo
 
 .PHONY: get-header
 get-header:
